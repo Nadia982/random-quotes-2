@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+}
+
+:root {
+    --background: #c3eceb;
+}
+
+body{
+    background: var(--background);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quote-container{
+    display: flex;
+    gap: 2em;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 5em;
+    box-shadow: 0px 10px 20px 0 rgba(0,0,0,0.15);
+    min-height: 32rem;
+    width: 90%;
+    max-width: 1000px;
+}
+
+blockquote{
+    grid-column: 1 / span 6;
+    grid-row-start: 1;  
+    grid-row-end: 3;
+    text-align: center;
+    font-size: 1.6rem;
+     border-radius: 12px;
+    padding: 1em 0.5em;
+display: flex;
+align-items: center; 
+justify-content: center;
+width: 100%;
+}
+
+/* blockquote::before{
+content: open-quote;
+display: inline-block;
+}
+
+blockquote::after{
+    content: close-quote;
+    display: inline-block;
+    } */
+
+.author-details{
+    align-self: end;    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.author-name{
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    justify-self: end;
+    font-size: 1.3rem;
+    font-weight: 600;
+    
+    margin-right: 2em;
+
+}
+
+.author-name::before{
+    content: "- ";
+}
+
+.author-picture {
+    grid-column-start: 5;
+    grid-row-start: 3;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
+}
+
+.new-quote {
+    background-color: orange;
+    font-size: 1.5rem;
+    border: 4px solid transparent;
+    padding: .5em 1em;
+    border-radius: 12px;
+    cursor: pointer;
+    min-width: 200px;
+    height: 4.4rem;
+    align-self: center;
+}
+
+button:focus {
+    border: 4px solid white;
+    outline: 4px solid orange;
+    filter: brightness(1.1);
+}
+
+button:hover{
+    filter: brightness(1.2);
+}
