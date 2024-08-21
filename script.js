@@ -4,8 +4,8 @@ const newQuoteBtn = document.querySelector(".new-quote");
 const quoteContent = document.querySelector(".quote-content");
 const authorName = document.querySelector(".author-name");
 const authorPicture = document.querySelector(".author-picture");
+const quotesFinishedMessage = document.querySelector(".quotes-finished-message");
 
-console.log(quoteContent);
 
 const getRandomColor = () => {
   //rn = randomNumber;
@@ -139,14 +139,13 @@ const getQuote = () => {
 getQuote();
 
 const handleNext = () => {
+  quotesFinishedMessage.innerText = "";
   document.querySelector("blockquote").style.backgroundColor = getRandomColor();
   getQuote();
 
   if (quoteIndices.length === 0) {
-    console.log(
-      `************* All ${quotes.length} quotes have been now been shown. Resetting quote list. *************`
-    );
-    quoteIndices = [...Array(quotes.length).keys()];
+    quotesFinishedMessage.innerText = `All ${quotes.length} quotes have been now been shown. Resetting quote list.`;
+        quoteIndices = [...Array(quotes.length).keys()];
   }
 };
 
