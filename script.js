@@ -3,7 +3,6 @@ let synth = speechSynthesis;
 
 window.speechSynthesis.addEventListener("voiceschanged", function () {
   voices = window.speechSynthesis.getVoices();
-  console.log(voices);
 });
 
 const newQuoteBtn = document.querySelector(".new-quote");
@@ -41,93 +40,93 @@ document.querySelector("blockquote").style.backgroundColor = getRandomColor();
 
 const quotes = [
   {
-    author: " Shakespeare",
-    quote: '"This above all: to thine own self be true"',
+    author: "Shakespeare",
+    text: '"This above all: to thine own self be true"',
     image: "./images/shakespeare.png",
   },
   {
     author: "Shakespeare",
-    quote:
+    text:
       '"Our doubts are traitors, And make us lose the good we oft might win, By fearing to attempt"',
     image: "./images/shakespeare.png",
   },
   {
     author: "Shakespeare",
-    quote: '"We know what we are, but know not what we may be."',
+    text: '"We know what we are, but know not what we may be."',
     image: "./images/shakespeare.png",
   },
   {
     author: "Shakespeare",
-    quote:
+    text:
       '"Be not afraid of greatness: some are born great, some achieve greatness and some have greatness thrust upon them."',
     image: "./images/shakespeare.png",
   },
   {
     author: "Aristotle",
-    quote: '"Education is bitter, but its fruit is sweet."',
+    text: '"Education is bitter, but its fruit is sweet."',
     image: "./images/aristotle.png",
   },
   {
     author: "Aristotle",
-    quote: '"Pleasure in the job puts perfection in the work."',
+    text: '"Pleasure in the job puts perfection in the work."',
     image: "./images/aristotle.png",
   },
   {
     author: "Aristotle",
-    quote: '"Good habits formed at youth make all the difference"',
+    text: '"Good habits formed at youth make all the difference"',
     image: "./images/aristotle.png",
   },
   {
     author: "Aristotle",
-    quote: '"Well begun is half done"',
+    text: '"Well begun is half done"',
     image: "./images/aristotle.png",
   },
   {
     author: "Plato",
-    quote:
+    text:
       '"Do not train a child to learn by force or harshness; but direct them to it by what amuses their minds, so that you may be better able to discover with accuracy the peculiar bent of the genius of each."',
     image: "./images/plato.png",
   },
   {
     author: "Plato",
-    quote: '"Necessity is the mother of invention."',
+    text: '"Necessity is the mother of invention."',
     image: "./images/plato.png",
   },
   {
     author: "Plato",
-    quote: '"Beauty lies in the eyes of the beholder"',
+    text: '"Beauty lies in the eyes of the beholder"',
     image: "./images/plato.png",
   },
   {
     author: "Plato",
-    quote: '"Character is simply habit long continued"',
+    text: '"Character is simply habit long continued"',
     image: "./images/plato.png",
   },
   {
     author: "Socrates",
-    quote: '"The only true wisdom is in knowing that you know nothing"',
+    text: '"The only true wisdom is in knowing that you know nothing"',
     image: "./images/socrates.png",
   },
   {
     author: "Socrates",
-    quote:
+    text:
       '"True wisdom comes to each of us when we realise how little we understand about life, ourselves, and the world around us."',
     image: "./images/socrates.png",
   },
   {
     author: "Socrates",
-    quote: '"Wisdom begins in wonder"',
+    text: '"Wisdom begins in wonder"',
     image: "./images/socrates.png",
   },
   {
     author: "Socrates",
-    quote:
+    text:
       '"Employ your time in improving yourself by other men\'s writings, so that you shall gain easily what others have laboured hard for."',
     image: "./images/socrates.png",
   },
   {
     author: "Socrates",
-    quote: '"Knowledge will make you be free."',
+    text: '"Knowledge will make you be free."',
     image: "./images/socrates.png",
   },
 ];
@@ -135,22 +134,35 @@ let quoteIndices = [...Array(quotes.length).keys()];
 
 const getQuote = () => {
   quoteIndices = quoteIndices.sort((a, b) => 0.5 - Math.random());
-  quoteContent.innerHTML = quotes[quoteIndices[quoteIndices.length - 1]].quote;
-  authorName.innerHTML = quotes[quoteIndices[quoteIndices.length - 1]].author;
-  authorPicture.src = quotes[quoteIndices[quoteIndices.length - 1]].image;
+  const quote = quotes[quoteIndices[quoteIndices.length - 1]]
+  const quoteText = quote.text;
+  quoteContent.innerHTML = quoteText;
+  const quoteAuthor = quote.author;
+  authorName.innerHTML = quoteAuthor;
+  authorPicture.src = quote.image;
   
   const readQuote = (text) => {
     const speech = new SpeechSynthesisUtterance(text);
+    if (quoteAuthor === "Plato"){
     speech.voice = voices.find(
       (voice) => voice.name === "Microsoft David - English (United States)"
-    );
+    );} else if (quoteAuthor === "Shakespeare"){
+      speech.voice = voices.find(
+      (voice) => voice.name === "Google UK English Male")
+    } else if (quoteAuthor === "Aristotle"){
+      speech.voice = voices.find(
+        (voice) => voice.name === "Microsoft Mark - English (United States)")
+    } else {
+      speech.voice = voices.find(
+        (voice) => voice.name === "Microsoft George - English (United Kingdom)")
+    }
     speech.pitch = 0.7;
     speech.volume = 0.5;
     speech.rate = 0.9;
     window.speechSynthesis.speak(speech);
   };
 
-  readQuote(quotes[quoteIndices[quoteIndices.length - 1]].quote)
+  readQuote(quoteText);
   quoteIndices.pop();
   
 };
