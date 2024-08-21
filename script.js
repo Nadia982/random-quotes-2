@@ -1,3 +1,5 @@
+let synth = speechSynthesis;
+
 const newQuoteBtn = document.querySelector(".new-quote");
 const quoteContent = document.querySelector(".quote-content");
 const authorName = document.querySelector(".author-name");
