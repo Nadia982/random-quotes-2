@@ -1,11 +1,18 @@
+let voices = [];
 let synth = speechSynthesis;
+
+window.speechSynthesis.addEventListener("voiceschanged", function () {
+  voices = window.speechSynthesis.getVoices();
+  console.log(voices);
+});
 
 const newQuoteBtn = document.querySelector(".new-quote");
 const quoteContent = document.querySelector(".quote-content");
 const authorName = document.querySelector(".author-name");
 const authorPicture = document.querySelector(".author-picture");
-const quotesFinishedMessage = document.querySelector(".quotes-finished-message");
-
+const quotesFinishedMessage = document.querySelector(
+  ".quotes-finished-message"
+);
 
 const getRandomColor = () => {
   //rn = randomNumber;
@@ -131,21 +138,35 @@ const getQuote = () => {
   quoteContent.innerHTML = quotes[quoteIndices[quoteIndices.length - 1]].quote;
   authorName.innerHTML = quotes[quoteIndices[quoteIndices.length - 1]].author;
   authorPicture.src = quotes[quoteIndices[quoteIndices.length - 1]].image;
+  
+  const readQuote = (text) => {
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.voice = voices.find(
+      (voice) => voice.name === "Microsoft David - English (United States)"
+    );
+    speech.pitch = 0.7;
+    speech.volume = 0.5;
+    speech.rate = 0.9;
+    window.speechSynthesis.speak(speech);
+  };
+
+  readQuote(quotes[quoteIndices[quoteIndices.length - 1]].quote)
   quoteIndices.pop();
+  
 };
-
-
 
 getQuote();
 
+
 const handleNext = () => {
+  synth.cancel()
   quotesFinishedMessage.innerText = "";
   document.querySelector("blockquote").style.backgroundColor = getRandomColor();
   getQuote();
 
   if (quoteIndices.length === 0) {
     quotesFinishedMessage.innerText = `All ${quotes.length} quotes have been now been shown. Resetting quote list.`;
-        quoteIndices = [...Array(quotes.length).keys()];
+    quoteIndices = [...Array(quotes.length).keys()];
   }
 };
 
@@ -157,6 +178,6 @@ document.addEventListener("keydown", (e) => {
   if (e.key == " ") {
     handleNext();
     newQuoteBtn.disabled = true;
-    setTimeout(() => newQuoteBtn.disabled = false, 500)
+    setTimeout(() => (newQuoteBtn.disabled = false), 500);
   }
 });
