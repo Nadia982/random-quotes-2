@@ -189,7 +189,10 @@ newQuoteBtn.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key == " ") {
     handleNext();
+    // The code below is to prevent the code from going forward two quotes when the user uses the keyboard to focus on the "new quote button" then presses the spacebar.
+    // Without the code below, the browser would handleNext twice with a single press of the spacebar (once because the spacebar has been pressed, and once because pressing spacebar or enter while the "new quote" button is in focus will also forward to the next quote)
+    // I wanted to keep the option to forward to the next quote by tabbing to the "new quote" button and pressing "enter" or "spacebar" as this is an expected functionality for accessibility (for keyboard users and those who can't use a mouse).  
     newQuoteBtn.disabled = true;
-    setTimeout(() => (newQuoteBtn.disabled = false), 500);
+    setTimeout(() => (newQuoteBtn.disabled = false), 200);
   }
 });
